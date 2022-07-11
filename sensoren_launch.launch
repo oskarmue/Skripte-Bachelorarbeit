@@ -1,0 +1,46 @@
+<launch>
+  <node
+    pkg="orientation"
+    type="Bestromung.py"
+    name="bestromung"
+    output="screen"
+  />
+  <include 
+    file="/home/pi/catkin_ws/src/ydlidar_ros/launch/G4.launch"
+  /> 
+  <arg 
+    name="node_start_delay" 
+    default="4.0" 
+  /> 
+  <node
+    pkg="orientation"
+    type="winkel_publishen.py"
+    name="winkel_publisher"
+    output="screen"
+    launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " 
+  />
+  <node
+    pkg="orientation"
+    type="lm1.py"
+    name="m_1_publisher" 
+    output="screen"
+  />
+  <node
+    pkg="orientation"
+    type="lm2.py"
+    name="m_2_publisher" 
+    output="screen"
+  />
+  <node
+    pkg="orientation"
+    type="ts_maus_lidar.py"
+    name="sync_and_controle"
+    output="screen"
+  />
+  <node
+    pkg="orientation"
+    type="planer_option_eins.py"
+    name="controle"
+    output="screen"
+  />
+</launch> 
